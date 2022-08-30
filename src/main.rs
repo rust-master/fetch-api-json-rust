@@ -17,15 +17,21 @@ struct Data {
 }
 
 #[tokio::main]
-async fn main() -> Result<(), reqwest::Error>{
+async fn main() -> Result<(), reqwest::Error> {
+    get_request().await.unwrap();
+
+    Ok(())
+}
+
+async fn get_request() -> Result<(), reqwest::Error> {
     let data: Pancakeswap = reqwest::Client::new()
-        .get("https://api.pancakeswap.info/api/v2/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82")
-        .send()
-        .await?
-        .json()
-        .await?;
+    .get("https://api.pancakeswap.info/api/v2/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82")
+    .send()
+    .await?
+    .json()
+    .await?;
 
     println!("{:#?}", data);
-   
+
     Ok(())
 }
